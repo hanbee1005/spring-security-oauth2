@@ -18,6 +18,7 @@ import nextstep.security.config.SecurityFilterChain;
 import nextstep.security.context.SecurityContextHolderFilter;
 import nextstep.security.oauth2.github.GitHubAuthorizationFilter;
 import nextstep.security.oauth2.github.GitHubRedirectUrlFilter;
+import nextstep.security.oauth2.google.GoogleRedirectUrlFilter;
 import nextstep.security.userdetails.UserDetails;
 import nextstep.security.userdetails.UserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -62,6 +63,7 @@ public class SecurityConfig {
                         new UsernamePasswordAuthenticationFilter(userDetailsService()),
                         new BasicAuthenticationFilter(userDetailsService()),
                         new GitHubRedirectUrlFilter(),
+                        new GoogleRedirectUrlFilter(),
                         new GitHubAuthorizationFilter(),
                         new AuthorizationFilter(requestAuthorizationManager())
                 )
