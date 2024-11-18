@@ -20,9 +20,15 @@ class LoginRedirectFilterTest {
     @Test
     void github() throws Exception {
         String requestUri = "/oauth2/authorization/github";
+        String expectedRedirectUri = "https://github.com/login/oauth/authorize" +
+                "?client_id=Ov23liG6AMAwmGMmkYwT" +
+                "&response_type=code" +
+                "&scope=read:user" +
+                "&redirect_uri=http://localhost:8080/login/oauth2/code/github";
 
         mockMvc.perform(MockMvcRequestBuilders.get(requestUri))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl(expectedRedirectUri));
     }
 
     @Test
