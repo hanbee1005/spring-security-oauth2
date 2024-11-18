@@ -17,9 +17,8 @@ import nextstep.security.config.FilterChainProxy;
 import nextstep.security.config.SecurityFilterChain;
 import nextstep.security.context.SecurityContextHolderFilter;
 import nextstep.security.oauth2.OAuth2ClientProperties;
+import nextstep.security.oauth2.Oauth2AuthenticationFilter;
 import nextstep.security.oauth2.Oauth2LoginRedirectFilter;
-import nextstep.security.oauth2.github.GitHubAuthorizationFilter;
-import nextstep.security.oauth2.google.GoogleAuthorizationFilter;
 import nextstep.security.userdetails.UserDetails;
 import nextstep.security.userdetails.UserDetailsService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -68,8 +67,7 @@ public class SecurityConfig {
                         new UsernamePasswordAuthenticationFilter(userDetailsService()),
                         new BasicAuthenticationFilter(userDetailsService()),
                         new Oauth2LoginRedirectFilter(oAuth2ClientProperties),
-                        new GitHubAuthorizationFilter(),
-                        new GoogleAuthorizationFilter(),
+                        new Oauth2AuthenticationFilter(oAuth2ClientProperties),
                         new AuthorizationFilter(requestAuthorizationManager())
                 )
         );
