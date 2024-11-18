@@ -14,7 +14,7 @@ import java.io.IOException;
 public class GitHubRedirectUrlFilter extends GenericFilterBean {
     private static final String AUTHORIZATION_REQUEST_URL = "/oauth2/authorization/github";
     private static final String GITHUB_AUTHORIZATION_URL = "https://github.com/login/oauth/authorize?";
-    private static final String REDIRECT_URL = "http://localhost:8080/login/oauth2/code/github";
+    public static final String REDIRECT_URL = "http://localhost:8080/login/oauth2/code/github";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

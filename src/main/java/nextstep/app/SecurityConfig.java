@@ -16,6 +16,7 @@ import nextstep.security.config.DelegatingFilterProxy;
 import nextstep.security.config.FilterChainProxy;
 import nextstep.security.config.SecurityFilterChain;
 import nextstep.security.context.SecurityContextHolderFilter;
+import nextstep.security.oauth2.github.GitHubAuthorizationFilter;
 import nextstep.security.oauth2.github.GitHubRedirectUrlFilter;
 import nextstep.security.userdetails.UserDetails;
 import nextstep.security.userdetails.UserDetailsService;
@@ -61,6 +62,7 @@ public class SecurityConfig {
                         new UsernamePasswordAuthenticationFilter(userDetailsService()),
                         new BasicAuthenticationFilter(userDetailsService()),
                         new GitHubRedirectUrlFilter(),
+                        new GitHubAuthorizationFilter(),
                         new AuthorizationFilter(requestAuthorizationManager())
                 )
         );
