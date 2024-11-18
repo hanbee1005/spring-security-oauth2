@@ -1,0 +1,29 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            provider: github
+            client-id: Ov23liG6AMAwmGMmkYwT
+            client-secret: your-client-secret
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
+            scope:
+              - read:user
+          google:
+            provider: google
+            client-id: 88951150265-q7aq5urrim4rrtqo62hc96o6r5v7r34c.apps.googleusercontent.com
+            client-secret: your-client-secret
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - https://www.googleapis.com/auth/userinfo.profile
+              - https://www.googleapis.com/auth/userinfo.email
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: http://localhost:8089/login/oauth/access_token
+            user-info-uri: http://localhost:8089/user
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: http://localhost:8089/o/oauth2/token
+            user-info-uri: http://localhost:8089/oauth2/v1/userinfo

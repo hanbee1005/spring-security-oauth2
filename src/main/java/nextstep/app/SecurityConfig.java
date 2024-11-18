@@ -16,12 +16,13 @@ import nextstep.security.config.DelegatingFilterProxy;
 import nextstep.security.config.FilterChainProxy;
 import nextstep.security.config.SecurityFilterChain;
 import nextstep.security.context.SecurityContextHolderFilter;
+import nextstep.security.oauth2.OAuth2ClientProperties;
+import nextstep.security.oauth2.Oauth2LoginRedirectFilter;
 import nextstep.security.oauth2.github.GitHubAuthorizationFilter;
-import nextstep.security.oauth2.github.GitHubRedirectUrlFilter;
 import nextstep.security.oauth2.google.GoogleAuthorizationFilter;
-import nextstep.security.oauth2.google.GoogleRedirectUrlFilter;
 import nextstep.security.userdetails.UserDetails;
 import nextstep.security.userdetails.UserDetailsService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -31,14 +32,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@EnableAspectJAutoProxy
 @Configuration
+@EnableAspectJAutoProxy
+@EnableConfigurationProperties(OAuth2ClientProperties.class)
 public class SecurityConfig {
 
     private final MemberRepository memberRepository;
+    private final OAuth2ClientProperties oAuth2ClientProperties;
 
-    public SecurityConfig(MemberRepository memberRepository) {
+    public SecurityConfig(MemberRepository memberRepository, OAuth2ClientProperties oAuth2ClientProperties) {
         this.memberRepository = memberRepository;
+        this.oAuth2ClientProperties = oAuth2ClientProperties;
     }
 
     @Bean
@@ -63,8 +67,7 @@ public class SecurityConfig {
                         new SecurityContextHolderFilter(),
                         new UsernamePasswordAuthenticationFilter(userDetailsService()),
                         new BasicAuthenticationFilter(userDetailsService()),
-                        new GitHubRedirectUrlFilter(),
-                        new GoogleRedirectUrlFilter(),
+                        new Oauth2LoginRedirectFilter(oAuth2ClientProperties),
                         new GitHubAuthorizationFilter(),
                         new GoogleAuthorizationFilter(),
                         new AuthorizationFilter(requestAuthorizationManager())
