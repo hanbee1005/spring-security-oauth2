@@ -18,6 +18,7 @@ import nextstep.security.config.SecurityFilterChain;
 import nextstep.security.context.SecurityContextHolderFilter;
 import nextstep.security.oauth2.github.GitHubAuthorizationFilter;
 import nextstep.security.oauth2.github.GitHubRedirectUrlFilter;
+import nextstep.security.oauth2.google.GoogleAuthorizationFilter;
 import nextstep.security.oauth2.google.GoogleRedirectUrlFilter;
 import nextstep.security.userdetails.UserDetails;
 import nextstep.security.userdetails.UserDetailsService;
@@ -65,6 +66,7 @@ public class SecurityConfig {
                         new GitHubRedirectUrlFilter(),
                         new GoogleRedirectUrlFilter(),
                         new GitHubAuthorizationFilter(),
+                        new GoogleAuthorizationFilter(),
                         new AuthorizationFilter(requestAuthorizationManager())
                 )
         );
